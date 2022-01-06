@@ -3,8 +3,9 @@
 
 using namespace std;
 
+
 // n^3 -> n^2
-int isPal(string &s, int i, int j) {
+bool isPal(string &s, int i, int j) {
     if (i >= j)
         return 1;
     auto f = (s[i] == s[j] && isPal(s, i+1, j-1));
@@ -19,7 +20,7 @@ int f(string &s, int i) {
     int m = n;
     for (int j = i; i < n; j++) {
         if (isPal(s, i, j)) {
-            m = min(m, 1, +f(s, j + 1));
+            m = min(m, 1 + f(s, j + 1));
         }
     }
     return m;
