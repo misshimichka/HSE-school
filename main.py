@@ -1,6 +1,6 @@
 mem = {}
 
-
+# Ленивая динамика: палиндромы
 def isPal(s):
     return s == s[::-1]
 
@@ -8,7 +8,7 @@ def isPal(s):
 def f(s, i):
     if i == len(s):
         return 0
-    if i in mem:  #кеширование
+    if i in mem:  # кеширование
         return mem[i]
     m = len(s)
     for j in range(i, len(s)):
