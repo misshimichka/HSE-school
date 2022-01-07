@@ -1,27 +1,31 @@
-#include <iostream>
-#include <map>
-#include <valarray>
 #include <vector>
-
+#include <iostream>
 using namespace std;
 
-// задача о рюкзаке со стоимостями
-// min(n*S, 2^n)
-map<pair<int, int>, bool> mem;
-
-int f(int i, int w, int S, vector<int> &a, vector<int> &cost) {
-    int n = a.size();
-    if (w > S) return INT_MIN;
-    if (i == n) return 0;
-    if (mem.count({i, w}))
-        return mem[{i, w}];
-    return mem[{i, w}] =
-                   max(f(i + 1, w, S, a), f(i + 1, w + a[i], S, a);
-}
 
 int main() {
-    vector<int> a = {1, 2, 3};
-    vector<int> cost = {9, 1, 2};
-    cout << f(0, 0, 5, a, cost) << endl;
-    return 0;
+    int n, W;
+    cin >> W >> n;
+    vector <int> w(n + 1);
+    for (int i = 1; i <= n; i++) {
+        cin >> w[i];
+    }
+    vector <vector <int> > dp(n + 1, vector<int> (W+ 1, 0));
+    dp[0][0] = 1;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 0; j <= W; j++) {
+            if (w[i] <= j) {
+                dp[i][j] = dp[i - 1][j] || dp[i - 1][j - w[i]];
+            } else {
+                dp[i][j] = dp[i - 1][j];
+            }
+            cout << "dp[" << i << "][" << j << "] = " << dp[i][j] << ", w[i] = " << w[i] << endl;
+        }
+    }
+    for (int w = W; w >= 0; w--) {
+        if (dp[n][w] == 1) {
+            cout << w << endl;
+            return 0;
+        }
+    }
 }
